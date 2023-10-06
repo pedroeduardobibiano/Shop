@@ -2,7 +2,7 @@ import type { AppProps } from "next/app";
 import { Roboto } from "@next/font/google";
 import { globalStyles } from "@/styles/global";
 
-import logoImg from '../assets/logo.svg'
+import logoImg from '../assets/Logo.svg'
 import { Container, Header } from "@/styles/pages/app";
 
 import Image from "next/image";
