@@ -1,4 +1,3 @@
-import { relative } from "path";
 import { styled } from "..";
 
 export const HomeContainer = styled("main", {
@@ -9,7 +8,7 @@ export const HomeContainer = styled("main", {
   minHeight: "656px",
 });
 
-export const Product = styled("a", {
+export const Product = styled("div", {
   background: "linear-gradient(180deg, #1ea483 0%, #7465d4)",
   borderRadius: 8,
   // padding: "4.5rem",

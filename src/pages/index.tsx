@@ -2,6 +2,8 @@ import { HomeContainer, Product } from "@/styles/pages/home";
 import Link from "next/link";
 import { useKeenSlider } from "keen-slider/react";
 
+import Head from "next/head";
+
 import { useState } from "react";
 
 import "keen-slider/keen-slider.min.css";
@@ -40,45 +42,52 @@ export default function Home({ products }: HomeProps) {
   });
 
   return (
-    <HomeContainer ref={sliderRef} className="keen-slider">
-      {products.map((product) => {
-        return (
-          <Product
-            as={Link}
-            key={product.id}
-            href={`/product/${product.id}`}
-            className="keen-slider__slide"
-          >
-            <Image src={product.imageUrl} alt="" width={520} height={480} />
-            <footer>
-              <strong>{product.name}</strong>
-              <span>{product.price}</span>
-            </footer>
-          </Product>
-        );
-      })}
-      {loaded && instanceRef.current && (
-        <>
-          <Arrow
-            left
-            onClick={(e: any) =>
-              e.stopPropagation() || instanceRef.current?.prev()
-            }
-            disabled={currentSlide === 0}
-          />
+    <>
+      <Head>
+        <title>Home | IgniteShop</title>
+      </Head>
 
-          <Arrow
-            onClick={(e: any) =>
-              e.stopPropagation() || instanceRef.current?.next()
-            }
-            disabled={
-              currentSlide ===
-              instanceRef.current.track.details.slides.length - 1
-            }
-          />
-        </>
-      )}
-    </HomeContainer>
+      <HomeContainer ref={sliderRef} className="keen-slider">
+        {products.map((product) => {
+          return (
+            <Product
+              as={Link}
+              key={product.id}
+              href={`/product/${product.id}`}
+              className="keen-slider__slide"
+              prefetch={false}
+            >
+              <Image src={product.imageUrl} alt="" width={520} height={480} />
+              <footer>
+                <strong>{product.name}</strong>
+                <span>{product.price}</span>
+              </footer>
+            </Product>
+          );
+        })}
+        {loaded && instanceRef.current && (
+          <>
+            <Arrow
+              left
+              onClick={(e: any) =>
+                e.stopPropagation() || instanceRef.current?.prev()
+              }
+              disabled={currentSlide === 0}
+            />
+
+            <Arrow
+              onClick={(e: any) =>
+                e.stopPropagation() || instanceRef.current?.next()
+              }
+              disabled={
+                currentSlide ===
+                instanceRef.current.track.details.slides.length - 1
+              }
+            />
+          </>
+        )}
+      </HomeContainer>
+    </>
   );
 }
 
