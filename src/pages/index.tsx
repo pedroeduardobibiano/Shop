@@ -4,7 +4,7 @@ import { useKeenSlider } from "keen-slider/react";
 
 import Head from "next/head";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import "keen-slider/keen-slider.min.css";
 
@@ -13,17 +13,24 @@ import { Arrow } from "@/utils/arrow";
 import { stripe } from "@/lib/stripe";
 import { GetStaticProps } from "next";
 import Stripe from "stripe";
+import { CartButton } from "@/Header/CartButton";
+import { CartContext, IProduct } from "@/context/Cartcontext";
 
 interface HomeProps {
-  products: {
-    id: string;
-    name: string;
-    imageUrl: string;
-    price: string;
-  }[];
+  products: IProduct[];
 }
 
 export default function Home({ products }: HomeProps) {
+  const { addToCart, CheckIfItemAlreadyExists } = useContext(CartContext);
+
+  function handleAddToCart(
+    e: React.MouseEvent<HTMLButtonElement>,
+    product: IProduct
+  ) {
+    e.preventDefault();
+    addToCart(product);
+  }
+
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loaded, setLoaded] = useState(false);
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
@@ -59,10 +66,19 @@ export default function Home({ products }: HomeProps) {
             >
               <Image src={product.imageUrl} alt="" width={520} height={480} />
               <footer>
-                <strong>{product.name}</strong>
-                <span>{product.price}</span>
+                <div>
+                  <strong>{product.name}</strong>
+                  <span>{product.price}</span>
+                  <CartButton
+                     disabled={CheckIfItemAlreadyExists(product.id)}
+                    color={"green"}
+                    size={"large"}
+                    onClick={(e) => handleAddToCart(e, product)}
+                  />
+                </div>
               </footer>
             </Product>
+            
           );
         })}
         {loaded && instanceRef.current && (
@@ -107,7 +123,9 @@ export const getStaticProps: GetStaticProps = async () => {
         price: new Intl.NumberFormat("pt-BR", {
           style: "currency",
           currency: "BRL",
-        }).format(price?.unit_amount / 100), // Corrigido para dividir por 100
+        }).format(price?.unit_amount / 100),
+        numberPrice: price.unit_amount / 100, // Corrigido para dividir por 100
+        defaultPriceId: price.id,
       };
     } else {
       // Trate o caso em que price ou price.unit_amount é null conforme necessário.

@@ -28,7 +28,7 @@ export const SuccesContainer = styled("main", {
     fontSize: "$lg",
     color: "$green500",
     textDecoration: "none",
-    fontWeight: 'bold',
+    fontWeight: "bold",
 
     "&:hover": {
       color: "$green300",
@@ -36,14 +36,23 @@ export const SuccesContainer = styled("main", {
   },
 });
 
+export const ImagesContainer = styled("div", {
+  display: "flex",
+  alignItems: "center",
+  marginBottom: "3rem",
+
+  'div + div':{
+    marginLeft: 'calc(-140px / 2)'
+  }
+});
+
 export const ImageContainer = styled("div", {
-  width: "100%",
-  maxWidth: 130,
-  height: 145,
+  width: 140,
+  height: 140,
   background: "linear-gradient(100deg, #1ea483 0%, #7465d4 100%)",
-  borderRadius: 8,
-  padding: "0.25rem",
-  marginTop: "4rem",
+  borderRadius: "50%",
+  position: "relative",
+  boxShadow: "0px 0px 60px rgba(0,0,0, 0.8)",
 
   display: "flex",
   alignItems: "center",

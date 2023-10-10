@@ -1,3 +1,4 @@
+import { IProduct } from "@/context/Cartcontext";
 import { stripe } from "@/lib/stripe";
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -6,15 +7,15 @@ export default async function handler(
   res: NextApiResponse
 ) {
 
-  const {priceId} = req.body;
+  const {products} = req.body as {products: IProduct[]};
 
   if(req.method != 'POST'){
     return res.status(405).json({error: 'Method not Allowed.'})
   }
 
 
-  if(!priceId){
-    return res.status(400).json({error: 'price not found.'})
+  if(!products){
+    return res.status(400).json({error: 'Products not found.'})
   }
 
   const success_url = `${process.env.NEXT_URL}/success?session_id={CHECKOUT_SESSION_ID}`;
@@ -24,12 +25,12 @@ export default async function handler(
     success_url: success_url,
     cancel_url: cancel_url,
     mode: 'payment',
-    line_items: [
-      {
-        price: priceId,
+    line_items: products.map((product)=>{
+      return{
+        price: product.defaultPriceId,
         quantity: 1,
-      },
-    ],
+      }
+    })
   });
 
   return res.status(281).json({

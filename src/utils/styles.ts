@@ -1,13 +1,12 @@
-import { styled } from "..";
+import { styled } from "../styles";
 
 export const ArrowButton = styled("button", {
   position: "absolute",
   top: "50%",
   transform: "translateY(-50%)",
   width: "8.5rem",
-  height: "100%",
-  background:
-      "linear-gradient(270deg, rgba(18, 18, 20, 0) 0%, rgba(18, 18, 20, 0.75) 100%)",
+  height: "40%",
+  background:'transparent',
   cursor: "pointer",
   border: "none",
   outline: "none",
@@ -15,17 +14,17 @@ export const ArrowButton = styled("button", {
   fill: "$white",
   padding: "0 1rem",
 
+
   variants: {
       direction: {
           left: {
-              left: 0,
+              left: 8,
               textAlign: "left",
           },
           right: {
               right: 0,
               textAlign: "right",
-              background:
-                  "linear-gradient(90deg, rgba(18, 18, 20, 0) 0%, rgba(18, 18, 20, 0.75) 100%)",
+              background:'transparent',
           },
       },
       disabled: {

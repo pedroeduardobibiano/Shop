@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@next/font": "^13.4.19",
+    "@radix-ui/react-dialog": "^1.0.5",
     "@stitches/react": "^1.2.8",
     "@types/node": "20.5.9",
     "@types/react": "18.2.21",
@@ -20,6 +21,7 @@
     "eslint-config-next": "13.4.19",
     "keen-slider": "^6.8.6",
     "next": "13.4.19",
+    "phosphor-react": "^1.4.1",
     "postcss": "8.4.29",
     "react": "18.2.0",
     "react-dom": "18.2.0",

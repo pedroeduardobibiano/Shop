@@ -1,4 +1,5 @@
-import { ArrowButton } from "@/styles/pages/arrow";
+import React from "react";
+import { ArrowButton } from "./styles";
 
 
 export function Arrow(props:any) {
